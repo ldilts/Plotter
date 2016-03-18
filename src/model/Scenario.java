@@ -48,13 +48,64 @@ public class Scenario {
 
         this.size = Integer.parseInt(tokens[1]);
         this.quantity = Integer.parseInt(tokens[0]);
-//        this.type =s
+        this.type = (tokens[2] == "textuais") ? ScenarioType.TEXTUAL : ScenarioType.TEXTUAL;
 
         this.machine = tokens[3];
     }
-    
-    // Getters
+
+    /**
+     * @return the parallelTimes
+     */
+    public int[] getParallelTimes() {
+        return parallelTimes;
+    }
+
+    /**
+     * @return the sequentialTimes
+     */
+    public int[] getSequentialTimes() {
+        return sequentialTimes;
+    }
+
+    /**
+     * @return the parallelAverageTime
+     */
+    public int getParallelAverageTime() {
+        return parallelAverageTime;
+    }
+
+    /**
+     * @return the sequentialAverageTime
+     */
+    public int getSequentialAverageTime() {
+        return sequentialAverageTime;
+    }
+
+    /**
+     * @return the size
+     */
+    public int getSize() {
+        return size;
+    }
+
+    /**
+     * @return the quantity
+     */
+    public int getQuantity() {
+        return quantity;
+    }
+
+    /**
+     * @return the type
+     */
+    public ScenarioType getType() {
+        return type;
+    }
+
+    /**
+     * @return the machine
+     */
     public String getMachine() {
-        return this.machine;
+        return machine;
     }
 }

@@ -30,6 +30,18 @@ public class PlotterView extends javax.swing.JFrame {
         return this.xAxisVariableJComboBox.getSelectedIndex();
     }
     
+    public int getQuantityComboBoxIndex() {
+        return this.quantityJComboBox.getSelectedIndex();
+    }
+    
+    public int getSizeComboBoxIndex() {
+        return this.sizeJComboBox.getSelectedIndex();
+    }
+    
+    public int getTypeComboBoxIndex() {
+        return this.typeJComboBox.getSelectedIndex();
+    }
+    
     public String getTextFieldText() {
         return this.filePathJTextField.getText();
     }
@@ -65,14 +77,21 @@ public class PlotterView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         startJButton = new javax.swing.JButton();
         filePathJTextField = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        quantityJComboBox = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        sizeJComboBox = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        typeJComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Result Plotter");
+        setResizable(false);
 
-        chartJPanel.setBackground(new java.awt.Color(0, 153, 153));
+        chartJPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         chartJPanel.setLayout(new java.awt.BorderLayout());
 
-        xAxisVariableJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose a variable", "Quantity", "Size", "Type" }));
+        xAxisVariableJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quantity", "Size", "Type" }));
         xAxisVariableJComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 xAxisVariableJComboBoxActionPerformed(evt);
@@ -84,6 +103,18 @@ public class PlotterView extends javax.swing.JFrame {
         startJButton.setText("Start");
 
         filePathJTextField.setToolTipText("Path to file");
+
+        jLabel2.setText("Quantity:");
+
+        quantityJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10", "50", "100" }));
+
+        jLabel3.setText("Size:");
+
+        sizeJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1mb", "10mb", "50mb" }));
+
+        jLabel4.setText("Type:");
+
+        typeJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Binary", "Textual" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -98,11 +129,19 @@ public class PlotterView extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(xAxisVariableJComboBox, 0, 164, Short.MAX_VALUE))
+                            .addComponent(xAxisVariableJComboBox, 0, 164, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(quantityJComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(sizeJComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(typeJComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(chartJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(filePathJTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE))))
+                            .addComponent(filePathJTextField)
+                            .addComponent(chartJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -113,7 +152,19 @@ public class PlotterView extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(xAxisVariableJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(xAxisVariableJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(quantityJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(sizeJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(typeJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(chartJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(filePathJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -168,7 +219,13 @@ public class PlotterView extends javax.swing.JFrame {
     private javax.swing.JPanel chartJPanel;
     private javax.swing.JTextField filePathJTextField;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JComboBox<String> quantityJComboBox;
+    private javax.swing.JComboBox<String> sizeJComboBox;
     private javax.swing.JButton startJButton;
+    private javax.swing.JComboBox<String> typeJComboBox;
     private javax.swing.JComboBox<String> xAxisVariableJComboBox;
     // End of variables declaration//GEN-END:variables
 }

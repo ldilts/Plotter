@@ -22,96 +22,90 @@ import org.jfree.data.xy.XYSeriesCollection;
  * @author Lucas
  */
 public class LineChart {
-    
-    private ChartPanel chartPanel; 
-    
-    public LineChart(String chartTitle) {
-        final XYDataset dataset = createDataset();
+
+    private ChartPanel chartPanel;
+
+    public LineChart(String string, Scenario[] scenarios, int quantity, int size, ScenarioType type, int variableOption) {
+        final XYDataset dataset = createDataset(scenarios,
+                quantity,
+                size,
+                type,
+                variableOption);
         final JFreeChart chart = createChart(dataset);
         this.chartPanel = new ChartPanel(chart);
-        chartPanel.setPreferredSize(new java.awt.Dimension(510, 284));
+        chartPanel.setPreferredSize(new java.awt.Dimension(510, 282));
     }
-    
+
     /**
      * Creates a sample dataset.
-     * 
+     *
      * @return a sample dataset.
      */
-    private XYDataset createDataset() {
-        
-        final XYSeries series1 = new XYSeries("First");
-        series1.add(1.0, 1.0);
-        series1.add(2.0, 4.0);
-        series1.add(3.0, 3.0);
-        series1.add(4.0, 5.0);
-        series1.add(5.0, 5.0);
-        series1.add(6.0, 7.0);
-        series1.add(7.0, 7.0);
-        series1.add(8.0, 8.0);
+    private XYDataset createDataset(Scenario[] scenarios, 
+            int quantity, 
+            int size, 
+            ScenarioType type, 
+            int variableOption) {
 
-        final XYSeries series2 = new XYSeries("Second");
-        series2.add(1.0, 5.0);
-        series2.add(2.0, 7.0);
-        series2.add(3.0, 6.0);
-        series2.add(4.0, 8.0);
-        series2.add(5.0, 4.0);
-        series2.add(6.0, 4.0);
-        series2.add(7.0, 2.0);
-        series2.add(8.0, 1.0);
+        final XYSeries series1 = new XYSeries("");
+        final XYSeries series2 = new XYSeries("Sequential");
+        final XYSeries series3 = new XYSeries("Parallel");
 
-        final XYSeries series3 = new XYSeries("Third");
-        series3.add(3.0, 4.0);
-        series3.add(4.0, 3.0);
-        series3.add(5.0, 2.0);
-        series3.add(6.0, 3.0);
-        series3.add(7.0, 6.0);
-        series3.add(8.0, 3.0);
-        series3.add(9.0, 4.0);
-        series3.add(10.0, 3.0);
+        for (Scenario scenario : scenarios) {
+            if (scenario.getType() == ScenarioType.TEXTUAL
+                        && scenario.getQuantity() == 10) {
+                for (int timeStamp : scenario.getSequentialTimes()) {
+                    series2.add(scenario.getSize(), timeStamp);
+                }      
+                
+                for (int timeStamp : scenario.getParallelTimes()) {
+                    series3.add(scenario.getSize(), timeStamp);
+                }
+            }
+        }
 
         final XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(series1);
         dataset.addSeries(series2);
         dataset.addSeries(series3);
-                
+
         return dataset;
-        
+
     }
-    
+
     /**
      * Creates a chart.
-     * 
-     * @param dataset  the data for the chart.
-     * 
+     *
+     * @param dataset the data for the chart.
+     *
      * @return a chart.
      */
     private JFreeChart createChart(final XYDataset dataset) {
-        
+
         // create the chart...
         final JFreeChart chart = ChartFactory.createXYLineChart(
-            "Line Chart Demo 6",      // chart title
-            "X",                      // x axis label
-            "Y",                      // y axis label
-            dataset,                  // data
-            PlotOrientation.VERTICAL,
-            true,                     // include legend
-            true,                     // tooltips
-            false                     // urls
+                "Line Chart Demo 6", // chart title
+                "X", // x axis label
+                "Y", // y axis label
+                dataset, // data
+                PlotOrientation.VERTICAL,
+                true, // include legend
+                true, // tooltips
+                false // urls
         );
 
         // NOW DO SOME OPTIONAL CUSTOMISATION OF THE CHART...
         chart.setBackgroundPaint(Color.white);
 
 //        final StandardLegend legend = (StandardLegend) chart.getLegend();
-  //      legend.setDisplaySeriesShapes(true);
-        
+        //      legend.setDisplaySeriesShapes(true);
         // get a reference to the plot for further customisation...
         final XYPlot plot = chart.getXYPlot();
         plot.setBackgroundPaint(Color.lightGray);
-    //    plot.setAxisOffset(new Spacer(Spacer.ABSOLUTE, 5.0, 5.0, 5.0, 5.0));
+        //    plot.setAxisOffset(new Spacer(Spacer.ABSOLUTE, 5.0, 5.0, 5.0, 5.0));
         plot.setDomainGridlinePaint(Color.white);
         plot.setRangeGridlinePaint(Color.white);
-        
+
         final XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
         renderer.setSeriesLinesVisible(0, false);
         renderer.setSeriesShapesVisible(1, false);
@@ -121,12 +115,12 @@ public class LineChart {
         final NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         // OPTIONAL CUSTOMISATION COMPLETED.
-                
+
         return chart;
-        
+
     }
-    
+
     public ChartPanel getChartPanel() {
         return this.chartPanel;
-    } 
+    }
 }

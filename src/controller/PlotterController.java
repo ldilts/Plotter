@@ -9,9 +9,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.LineChart;
 import model.Reader;
 import model.Scenario;
+import model.ScenarioType;
 import view.PlotterView;
 
 /**
@@ -53,24 +56,51 @@ public class PlotterController {
         @Override
         public void actionPerformed(ActionEvent e) {
             
-//            String filePath = view.getTextFieldText();
-//            reader = new Reader(filePath);
-//            
-//            try {
-//                ArrayList<String> rawSenarios = reader.startReading();
-//                
-//                scenarios = new Scenario[rawSenarios.size()];
-//        
-//                for (String rawScenario : rawSenarios) {
-//                    Scenario scenario = new Scenario(rawScenario);
-//                    scenarios[rawSenarios.indexOf(rawScenario)] = scenario;
-//                    System.out.println(scenario.getMachine());
-//                }
-//            } catch (IOException ex) {
-//                // TODO show error
-//            }
-            LineChart lineChart = new LineChart("Title");
-            view.setChartPanel(lineChart.getChartPanel());
+            String filePath = view.getTextFieldText();
+            reader = new Reader("C:\\Users\\Lucas.Eurico\\Desktop\\arq-tempo-dilts.txt");
+            
+            try {
+                ArrayList<String> rawSenarios = reader.startReading();
+                
+                scenarios = new Scenario[rawSenarios.size()];
+        
+                for (String rawScenario : rawSenarios) {
+                    Scenario scenario = new Scenario(rawScenario);
+                    scenarios[rawSenarios.indexOf(rawScenario)] = scenario;
+                }
+                
+                int quantity = 0;
+                int size = 0;
+                ScenarioType type = ScenarioType.TEXTUAL;
+                
+                switch (view.getQuantityComboBoxIndex()) {
+                    case 0: quantity = 10; break;
+                    case 1: quantity = 50; break;
+                    case 2: quantity = 100; break;
+                }
+                
+                switch (view.getSizeComboBoxIndex()) {
+                    case 0: size = 1; break;
+                    case 1: size = 10; break;
+                    case 2: size = 50; break;
+                }
+                
+                switch (view.getTypeComboBoxIndex()) {
+                    case 0: type = ScenarioType.BINARY; break;
+                    case 1: type = ScenarioType.TEXTUAL; break;
+                }
+                
+                LineChart lineChart = new LineChart("",
+                        scenarios,
+                        quantity, 
+                        size,
+                        type,
+                        view.getComboBoxIndex());
+                view.setChartPanel(lineChart.getChartPanel());
+            } catch (IOException ex) {
+                 Logger.getLogger(Reader.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
     }
 }
