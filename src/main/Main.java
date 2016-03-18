@@ -20,9 +20,8 @@ public class Main {
      */
     public static void main(String[] args) {
         PlotterView view = new PlotterView();
-        Reader reader = new Reader("");
         
-        PlotterController controller = new PlotterController(view, reader);
+        PlotterController controller = new PlotterController(view);
         
         
         view.setVisible(true);

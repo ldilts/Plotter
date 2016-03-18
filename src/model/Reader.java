@@ -6,6 +6,7 @@
 package model;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -18,7 +19,8 @@ import java.util.logging.Logger;
  * @author Lucas
  */
 public class Reader {
-    private String filePath = "";
+//    String path = new File("").getAbsolutePath();
+    private String filePath; //= "C:\\Users\\Lucas.Eurico\\Desktop\\arq-tempo-dilts.txt";
     private BufferedReader bufferedReader;
     
     private ArrayList<String> lines;
@@ -28,25 +30,22 @@ public class Reader {
         this.lines = new ArrayList<String>();
     }
     
-    public ArrayList<String> startReading() {
+    public ArrayList<String> startReading() throws FileNotFoundException {
+//        System.out.println(path);
+       
+        this.bufferedReader = new BufferedReader(new FileReader(this.filePath));
+
+        String line = null;
+
         try {
-            this.bufferedReader = new BufferedReader(new FileReader(this.filePath));
-            
-            String line = null;
-            
-            try {
-                while(bufferedReader.ready()) {
-                    line = bufferedReader.readLine();
-                    lines.add(line);
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(Reader.class.getName()).log(Level.SEVERE, null, ex);
+            while(bufferedReader.ready()) {
+                line = bufferedReader.readLine();
+                lines.add(line);
             }
-            
-        } catch (FileNotFoundException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(Reader.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return this.lines;
     }
 }

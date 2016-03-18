@@ -28,15 +28,33 @@ public class Scenario {
     // Helper Methods
     
     private void inflateScenarioWith(String rawScenario) {
-//        this.parallelTimes = 
-//        this.sequentialTimes =
-//        this.parallelAverageTime =
-//        this.sequentialAverageTime =
+        String delims = "[-=;#&]+";
+        String[] tokens = rawScenario.split(delims);
+        
+        // TODO if all fields are not provided, throw an error
+        
+        this.parallelTimes = new int[]{Integer.parseInt(tokens[10]),
+            Integer.parseInt(tokens[11]),
+            Integer.parseInt(tokens[12]),
+            Integer.parseInt(tokens[13]),
+            Integer.parseInt(tokens[14])};
+        this.sequentialTimes = new int[]{Integer.parseInt(tokens[4]),
+            Integer.parseInt(tokens[5]),
+            Integer.parseInt(tokens[6]),
+            Integer.parseInt(tokens[7]),
+            Integer.parseInt(tokens[8])};
+        this.parallelAverageTime = Integer.parseInt(tokens[15]);
+        this.sequentialAverageTime = Integer.parseInt(tokens[9]);
 
-//        this.size =
-//        this.quantity =
-//        this.type =
+        this.size = Integer.parseInt(tokens[1]);
+        this.quantity = Integer.parseInt(tokens[0]);
+//        this.type =s
 
-//        this.machine =
+        this.machine = tokens[3];
+    }
+    
+    // Getters
+    public String getMachine() {
+        return this.machine;
     }
 }

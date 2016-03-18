@@ -5,7 +5,13 @@
  */
 package view;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.LayoutManager;
 import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import org.jfree.chart.ChartPanel;
 
 /**
  *
@@ -24,8 +30,25 @@ public class PlotterView extends javax.swing.JFrame {
         return this.xAxisVariableJComboBox.getSelectedIndex();
     }
     
+    public String getTextFieldText() {
+        return this.filePathJTextField.getText();
+    }
+    
+    public void setChartPanel(ChartPanel chartPanel) {
+//        this.chartJPanel.setLayout(new BorderLayout());
+        this.initComponents();
+        this.chartJPanel.add(chartPanel, BorderLayout.NORTH);
+        this.chartJPanel.revalidate();
+        this.chartJPanel.repaint();
+        System.out.println("Chart pannel added!");
+    }
+    
     public void addComboBoxListener(ActionListener comboBoxListener) {
-        xAxisVariableJComboBox.addActionListener(comboBoxListener);
+        this.xAxisVariableJComboBox.addActionListener(comboBoxListener);
+    }
+    
+    public void addButtonListener(ActionListener buttonListener) {
+        this.startJButton.addActionListener(buttonListener);
     }
 
     /**
@@ -41,22 +64,13 @@ public class PlotterView extends javax.swing.JFrame {
         xAxisVariableJComboBox = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         startJButton = new javax.swing.JButton();
+        filePathJTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Result Plotter");
 
-        chartJPanel.setBackground(new java.awt.Color(102, 255, 204));
-
-        javax.swing.GroupLayout chartJPanelLayout = new javax.swing.GroupLayout(chartJPanel);
-        chartJPanel.setLayout(chartJPanelLayout);
-        chartJPanelLayout.setHorizontalGroup(
-            chartJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 510, Short.MAX_VALUE)
-        );
-        chartJPanelLayout.setVerticalGroup(
-            chartJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 284, Short.MAX_VALUE)
-        );
+        chartJPanel.setBackground(new java.awt.Color(0, 153, 153));
+        chartJPanel.setLayout(new java.awt.BorderLayout());
 
         xAxisVariableJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose a variable", "Quantity", "Size", "Type" }));
         xAxisVariableJComboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -69,19 +83,26 @@ public class PlotterView extends javax.swing.JFrame {
 
         startJButton.setText("Start");
 
+        filePathJTextField.setToolTipText("Path to file");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(xAxisVariableJComboBox, 0, 160, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(startJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(chartJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(startJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(xAxisVariableJComboBox, 0, 164, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(chartJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(filePathJTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -93,10 +114,12 @@ public class PlotterView extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(xAxisVariableJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(chartJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(chartJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(filePathJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(startJButton)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         pack();
@@ -143,6 +166,7 @@ public class PlotterView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel chartJPanel;
+    private javax.swing.JTextField filePathJTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton startJButton;
     private javax.swing.JComboBox<String> xAxisVariableJComboBox;

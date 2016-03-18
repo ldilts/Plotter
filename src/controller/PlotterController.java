@@ -7,7 +7,9 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
+import model.LineChart;
 import model.Reader;
 import model.Scenario;
 import view.PlotterView;
@@ -22,18 +24,11 @@ public class PlotterController {
     
     private Scenario[] scenarios;
     
-    public PlotterController(PlotterView view, Reader reader) {
+    public PlotterController(PlotterView view) {
         this.view = view;
-        this.reader = reader;
         
         this.view.addComboBoxListener(new ComboBoxListener());
-        ArrayList<String> rawSenarios = this.reader.startReading();
-        this.scenarios = new Scenario[rawSenarios.size()];
-        
-        for (String rawScenario : rawSenarios) {
-            Scenario scenario = new Scenario(rawScenario);
-            this.scenarios[rawSenarios.indexOf(rawScenario)] = scenario;
-        }
+        this.view.addButtonListener(new ButtonListener());
     }
     
     class ComboBoxListener implements ActionListener {
@@ -51,6 +46,31 @@ public class PlotterController {
                     break;
             }
         }
-        
+    }
+    
+    class ButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            
+//            String filePath = view.getTextFieldText();
+//            reader = new Reader(filePath);
+//            
+//            try {
+//                ArrayList<String> rawSenarios = reader.startReading();
+//                
+//                scenarios = new Scenario[rawSenarios.size()];
+//        
+//                for (String rawScenario : rawSenarios) {
+//                    Scenario scenario = new Scenario(rawScenario);
+//                    scenarios[rawSenarios.indexOf(rawScenario)] = scenario;
+//                    System.out.println(scenario.getMachine());
+//                }
+//            } catch (IOException ex) {
+//                // TODO show error
+//            }
+            LineChart lineChart = new LineChart("Title");
+            view.setChartPanel(lineChart.getChartPanel());
+        }
     }
 }
