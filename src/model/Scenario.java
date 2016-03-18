@@ -48,7 +48,7 @@ public class Scenario {
 
         this.size = Integer.parseInt(tokens[1]);
         this.quantity = Integer.parseInt(tokens[0]);
-        this.type = (tokens[2] == "textuais") ? ScenarioType.TEXTUAL : ScenarioType.TEXTUAL;
+        this.type = ("textuais".equals(tokens[2])) ? ScenarioType.TEXTUAL : ScenarioType.BINARY;
 
         this.machine = tokens[3];
     }

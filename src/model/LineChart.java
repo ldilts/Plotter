@@ -47,27 +47,49 @@ public class LineChart {
             ScenarioType type, 
             int variableOption) {
 
-        final XYSeries series1 = new XYSeries("");
-        final XYSeries series2 = new XYSeries("Sequential");
-        final XYSeries series3 = new XYSeries("Parallel");
+        final XYSeries series1 = new XYSeries("Sequential");
+        final XYSeries series2 = new XYSeries("Parallel");
 
         for (Scenario scenario : scenarios) {
-            if (scenario.getType() == ScenarioType.TEXTUAL
-                        && scenario.getQuantity() == 10) {
-                for (int timeStamp : scenario.getSequentialTimes()) {
-                    series2.add(scenario.getSize(), timeStamp);
-                }      
-                
-                for (int timeStamp : scenario.getParallelTimes()) {
-                    series3.add(scenario.getSize(), timeStamp);
-                }
+            switch (variableOption) {
+                case 0:
+//                    System.out.println("Quantity is variable");
+                    if (scenario.getSize() == size
+                            && scenario.getType() == type) {
+                        for (int timeStamp : scenario.getSequentialTimes()) {
+                            series1.add(scenario.getQuantity(), timeStamp);
+                        }
+                        
+                        for (int timeStamp : scenario.getParallelTimes()) {
+                            series2.add(scenario.getQuantity(), timeStamp);
+                        }
+                    }   break;
+                case 1:
+//                    System.out.println("Size is variable");
+                    if (scenario.getType() == type
+                            && scenario.getQuantity() == quantity) {
+                        for (int timeStamp : scenario.getSequentialTimes()) {
+                            series1.add(scenario.getSize(), timeStamp);
+                        }
+                        
+                        for (int timeStamp : scenario.getParallelTimes()) {
+                            series2.add(scenario.getSize(), timeStamp);
+                        }
+                    }   break;
+                default:
+//                    System.out.println("Else is variable");
+                    for (int timeStamp : scenario.getSequentialTimes()) {
+                        series1.add(0, timeStamp);
+                    }   for (int timeStamp : scenario.getParallelTimes()) {
+                        series2.add(1, timeStamp);
+                    }   break;
             }
+            
         }
 
         final XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(series1);
         dataset.addSeries(series2);
-        dataset.addSeries(series3);
 
         return dataset;
 

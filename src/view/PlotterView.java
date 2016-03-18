@@ -48,11 +48,11 @@ public class PlotterView extends javax.swing.JFrame {
     
     public void setChartPanel(ChartPanel chartPanel) {
 //        this.chartJPanel.setLayout(new BorderLayout());
-        this.initComponents();
+//        this.initComponents();
+        this.chartJPanel.removeAll();
         this.chartJPanel.add(chartPanel, BorderLayout.NORTH);
         this.chartJPanel.revalidate();
         this.chartJPanel.repaint();
-        System.out.println("Chart pannel added!");
     }
     
     public void addComboBoxListener(ActionListener comboBoxListener) {
@@ -178,6 +178,7 @@ public class PlotterView extends javax.swing.JFrame {
 
     private void xAxisVariableJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xAxisVariableJComboBoxActionPerformed
         // TODO add your handling code here:
+        System.out.println("change");
     }//GEN-LAST:event_xAxisVariableJComboBoxActionPerformed
 
     /**
