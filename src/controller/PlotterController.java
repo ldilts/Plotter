@@ -89,9 +89,7 @@ public class PlotterController {
                     case 0: type = ScenarioType.BINARY; break;
                     case 1: type = ScenarioType.TEXTUAL; break;
                 }
-                
-                System.out.println("Combobox option is: " + view.getComboBoxIndex());
-                
+               
                 LineChart lineChart = new LineChart("",
                         scenarios,
                         quantity, 

@@ -31,7 +31,7 @@ public class LineChart {
                 size,
                 type,
                 variableOption);
-        final JFreeChart chart = createChart(dataset);
+        final JFreeChart chart = createChart(dataset, variableOption);
         this.chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new java.awt.Dimension(510, 282));
     }
@@ -41,47 +41,41 @@ public class LineChart {
      *
      * @return a sample dataset.
      */
-    private XYDataset createDataset(Scenario[] scenarios, 
-            int quantity, 
-            int size, 
-            ScenarioType type, 
-            int variableOption) {
+    private XYDataset createDataset(final Scenario[] scenarios, 
+            final int quantity, 
+            final int size, 
+            final ScenarioType type, 
+            final int variableOption) {
 
         final XYSeries series1 = new XYSeries("Sequential");
         final XYSeries series2 = new XYSeries("Parallel");
+        
+        System.out.println("Scenarios size: " + scenarios.length);
 
         for (Scenario scenario : scenarios) {
             switch (variableOption) {
                 case 0:
-//                    System.out.println("Quantity is variable");
                     if (scenario.getSize() == size
                             && scenario.getType() == type) {
-                        for (int timeStamp : scenario.getSequentialTimes()) {
-                            series1.add(scenario.getQuantity(), timeStamp);
-                        }
+                        System.out.println(scenario.getQuantity() + " " + scenario.getSize() + " " + scenario.getType() + " " + scenario.getSequentialAverageTime());
+                        series1.add(scenario.getQuantity(), scenario.getSequentialAverageTime());
+                        series2.add(scenario.getQuantity(), scenario.getParallelAverageTime());
                         
-                        for (int timeStamp : scenario.getParallelTimes()) {
-                            series2.add(scenario.getQuantity(), timeStamp);
-                        }
                     }   break;
                 case 1:
-//                    System.out.println("Size is variable");
-                    if (scenario.getType() == type
-                            && scenario.getQuantity() == quantity) {
-                        for (int timeStamp : scenario.getSequentialTimes()) {
-                            series1.add(scenario.getSize(), timeStamp);
-                        }
-                        
-                        for (int timeStamp : scenario.getParallelTimes()) {
-                            series2.add(scenario.getSize(), timeStamp);
-                        }
+                    if (scenario.getQuantity() == quantity 
+                            && scenario.getType() == type) {
+                        System.out.println(scenario.getQuantity() + " " + scenario.getSize() + " " + scenario.getType() + " " + scenario.getSequentialAverageTime());
+                        series1.add(scenario.getSize(), scenario.getSequentialAverageTime());
+                        series2.add(scenario.getSize(), scenario.getParallelAverageTime());
+
                     }   break;
                 default:
-//                    System.out.println("Else is variable");
-                    for (int timeStamp : scenario.getSequentialTimes()) {
-                        series1.add(0, timeStamp);
-                    }   for (int timeStamp : scenario.getParallelTimes()) {
-                        series2.add(1, timeStamp);
+                    if (scenario.getQuantity() == quantity 
+                            && scenario.getSize() == size) {
+                        System.out.println(scenario.getQuantity() + " " + scenario.getSize() + " " + scenario.getType() + " " + scenario.getSequentialAverageTime());
+                        series1.add(0, scenario.getSequentialAverageTime());
+                        series2.add(1, scenario.getParallelAverageTime());
                     }   break;
             }
             
@@ -102,13 +96,20 @@ public class LineChart {
      *
      * @return a chart.
      */
-    private JFreeChart createChart(final XYDataset dataset) {
+    private JFreeChart createChart(final XYDataset dataset, final int variableOption) {
+        
+        String title = "";
+        switch (variableOption) {
+            case 0: title = "Quantity"; break;
+            case 1: title = "Size"; break;
+            default: title = "Type"; break;
+        }
 
         // create the chart...
         final JFreeChart chart = ChartFactory.createXYLineChart(
-                "Line Chart Demo 6", // chart title
-                "X", // x axis label
-                "Y", // y axis label
+                title + " Line Chart", // chart title
+                title, // x axis label
+                "Time", // y axis label
                 dataset, // data
                 PlotOrientation.VERTICAL,
                 true, // include legend
