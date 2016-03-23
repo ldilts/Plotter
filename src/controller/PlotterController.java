@@ -72,11 +72,13 @@ public class PlotterController {
                 int quantity = 0;
                 int size = 0;
                 ScenarioType type = ScenarioType.TEXTUAL;
+                String machine = "caio";
                 
                 switch (view.getQuantityComboBoxIndex()) {
                     case 0: quantity = 10; break;
                     case 1: quantity = 50; break;
                     case 2: quantity = 100; break;
+                    case 3: quantity = 200; break;
                 }
                 
                 switch (view.getSizeComboBoxIndex()) {
@@ -89,13 +91,19 @@ public class PlotterController {
                     case 0: type = ScenarioType.BINARY; break;
                     case 1: type = ScenarioType.TEXTUAL; break;
                 }
+                
+                switch (view.getMachineComboBoxIndex()) {
+                    case 0: machine = "caio"; break;
+                    case 1: machine = "jonathan"; break;
+                }
                
                 LineChart lineChart = new LineChart("",
                         scenarios,
                         quantity, 
                         size,
                         type,
-                        view.getComboBoxIndex());
+                        view.getComboBoxIndex(),
+                        machine);
                 view.setChartPanel(lineChart.getChartPanel());
             } catch (IOException ex) {
                  Logger.getLogger(Reader.class.getName()).log(Level.SEVERE, null, ex);

@@ -25,13 +25,15 @@ public class LineChart {
 
     private ChartPanel chartPanel;
 
-    public LineChart(String string, Scenario[] scenarios, int quantity, int size, ScenarioType type, int variableOption) {
+    public LineChart(String string, Scenario[] scenarios, int quantity,
+            int size, ScenarioType type, int variableOption, String machine) {
         final XYDataset dataset = createDataset(scenarios,
                 quantity,
                 size,
                 type,
-                variableOption);
-        final JFreeChart chart = createChart(dataset, variableOption);
+                variableOption,
+                machine);
+        final JFreeChart chart = createChart(dataset, variableOption, machine);
         this.chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new java.awt.Dimension(510, 282));
     }
@@ -45,7 +47,8 @@ public class LineChart {
             final int quantity, 
             final int size, 
             final ScenarioType type, 
-            final int variableOption) {
+            final int variableOption,
+            final String machine) {
 
         final XYSeries series1 = new XYSeries("Sequential");
         final XYSeries series2 = new XYSeries("Parallel");
@@ -53,32 +56,33 @@ public class LineChart {
         System.out.println("Scenarios size: " + scenarios.length);
 
         for (Scenario scenario : scenarios) {
-            switch (variableOption) {
-                case 0:
-                    if (scenario.getSize() == size
-                            && scenario.getType() == type) {
-                        System.out.println(scenario.getQuantity() + " " + scenario.getSize() + " " + scenario.getType() + " " + scenario.getSequentialAverageTime());
-                        series1.add(scenario.getQuantity(), scenario.getSequentialAverageTime());
-                        series2.add(scenario.getQuantity(), scenario.getParallelAverageTime());
-                        
-                    }   break;
-                case 1:
-                    if (scenario.getQuantity() == quantity 
-                            && scenario.getType() == type) {
-                        System.out.println(scenario.getQuantity() + " " + scenario.getSize() + " " + scenario.getType() + " " + scenario.getSequentialAverageTime());
-                        series1.add(scenario.getSize(), scenario.getSequentialAverageTime());
-                        series2.add(scenario.getSize(), scenario.getParallelAverageTime());
+            if (scenario.getMachine().equals(machine)) {
+                switch (variableOption) {
+                    case 0:
+                        if (scenario.getSize() == size
+                                && scenario.getType() == type) {
+                            System.out.println(scenario.getQuantity() + " " + scenario.getSize() + " " + scenario.getType() + " " + scenario.getSequentialAverageTime());
+                            series1.add(scenario.getQuantity(), scenario.getSequentialAverageTime());
+                            series2.add(scenario.getQuantity(), scenario.getParallelAverageTime());
 
-                    }   break;
-                default:
-                    if (scenario.getQuantity() == quantity 
-                            && scenario.getSize() == size) {
-                        System.out.println(scenario.getQuantity() + " " + scenario.getSize() + " " + scenario.getType() + " " + scenario.getSequentialAverageTime());
-                        series1.add(0, scenario.getSequentialAverageTime());
-                        series2.add(1, scenario.getParallelAverageTime());
-                    }   break;
+                        }   break;
+                    case 1:
+                        if (scenario.getQuantity() == quantity 
+                                && scenario.getType() == type) {
+                            System.out.println(scenario.getQuantity() + " " + scenario.getSize() + " " + scenario.getType() + " " + scenario.getSequentialAverageTime());
+                            series1.add(scenario.getSize(), scenario.getSequentialAverageTime());
+                            series2.add(scenario.getSize(), scenario.getParallelAverageTime());
+
+                        }   break;
+                    default:
+                        if (scenario.getQuantity() == quantity 
+                                && scenario.getSize() == size) {
+                            System.out.println(scenario.getQuantity() + " " + scenario.getSize() + " " + scenario.getType() + " " + scenario.getSequentialAverageTime());
+                            series1.add(0, scenario.getSequentialAverageTime());
+                            series2.add(1, scenario.getParallelAverageTime());
+                        }   break;
+                }
             }
-            
         }
 
         final XYSeriesCollection dataset = new XYSeriesCollection();
@@ -96,7 +100,9 @@ public class LineChart {
      *
      * @return a chart.
      */
-    private JFreeChart createChart(final XYDataset dataset, final int variableOption) {
+    private JFreeChart createChart(final XYDataset dataset,
+            final int variableOption,
+            final String machine) {
         
         String title = "";
         switch (variableOption) {
@@ -107,7 +113,7 @@ public class LineChart {
 
         // create the chart...
         final JFreeChart chart = ChartFactory.createXYLineChart(
-                title + " Line Chart", // chart title
+                title + " Line Chart: " + machine, // chart title
                 title, // x axis label
                 "Time", // y axis label
                 dataset, // data

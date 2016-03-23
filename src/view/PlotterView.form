@@ -40,11 +40,13 @@
                           <Component id="jLabel3" alignment="0" max="32767" attributes="0"/>
                           <Component id="quantityJComboBox" max="32767" attributes="0"/>
                           <Component id="sizeJComboBox" alignment="0" max="32767" attributes="0"/>
+                          <Component id="typeJComboBox" max="32767" attributes="0"/>
+                          <Component id="jLabel5" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="typeJComboBox" max="32767" attributes="0"/>
+                          <Component id="machineJComboBox" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -78,6 +80,10 @@
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="typeJComboBox" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="machineJComboBox" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="chartJPanel" min="-2" pref="284" max="-2" attributes="0"/>
               </Group>
@@ -142,10 +148,11 @@
     <Component class="javax.swing.JComboBox" name="quantityJComboBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="3">
+          <StringArray count="4">
             <StringItem index="0" value="10"/>
             <StringItem index="1" value="50"/>
             <StringItem index="2" value="100"/>
+            <StringItem index="3" value="200"/>
           </StringArray>
         </Property>
       </Properties>
@@ -183,6 +190,24 @@
           <StringArray count="2">
             <StringItem index="0" value="Binary"/>
             <StringItem index="1" value="Textual"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel5">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="M&#xe1;quina:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="machineJComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="2">
+            <StringItem index="0" value="caio"/>
+            <StringItem index="1" value="jonathan"/>
           </StringArray>
         </Property>
       </Properties>
