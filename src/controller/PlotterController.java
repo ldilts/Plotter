@@ -94,7 +94,7 @@ public class PlotterController {
                 
                 switch (view.getMachineComboBoxIndex()) {
                     case 0: machine = "caio"; break;
-                    case 1: machine = "jonathan"; break;
+                    case 1: machine = "dilts"; break;
                 }
                
                 LineChart lineChart = new LineChart("",
