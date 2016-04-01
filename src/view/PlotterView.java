@@ -124,7 +124,7 @@ public class PlotterView extends javax.swing.JFrame {
 
         jLabel5.setText("Máquina:");
 
-        machineJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "caio", "dilts" }));
+        machineJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "caio", "dilts", "Jonathan" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
