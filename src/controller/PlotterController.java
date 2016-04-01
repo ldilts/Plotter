@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.LineChart;
+import model.LineChart; 
 import model.Reader;
 import model.Scenario;
 import model.ScenarioType;

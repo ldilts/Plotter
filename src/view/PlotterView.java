@@ -97,7 +97,7 @@ public class PlotterView extends javax.swing.JFrame {
         chartJPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         chartJPanel.setLayout(new java.awt.BorderLayout());
 
-        xAxisVariableJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quantity", "Size", "Type" }));
+        xAxisVariableJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quantity", "Size", "Type", "Machine" }));
         xAxisVariableJComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 xAxisVariableJComboBoxActionPerformed(evt);
